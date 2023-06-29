@@ -1,0 +1,1 @@
+import{_ as s,o as a,c as n,O as l}from"./chunks/framework.571309da.js";const i=JSON.parse('{"title":"EasyCaptcha","description":"","frontmatter":{},"headers":[],"relativePath":"guide/验证码.md","filePath":"guide/验证码.md"}'),p={name:"guide/验证码.md"},o=l("",74),t=[o];function e(c,r,D,y,F,C){return a(),n("div",null,t)}const h=s(p,[["render",e]]);export{i as __pageData,h as default};
