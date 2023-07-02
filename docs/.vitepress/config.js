@@ -68,7 +68,7 @@ export default {
         
         editLink: {
             
-          pattern: 'https://github.com/yvtian-zhankui/yvtian-zhankui/tree/main/docs/:path',
+          pattern: 'https://github.com/yvtian-zhankui/yvtian-zhankui.github.io/tree/main/docs/:path',
           text: '编辑本页内容'
         },
          nav: [//上方导航
