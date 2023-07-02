@@ -12,6 +12,7 @@ cd docs/.vitepress/dist
 # 如果是发布到自定义域名
 echo 'themoss.eu.org' > CNAME
 
+git init
 git add -A
 git commit -m 'deploy'
 git push -f git@github.com:yvtian-zhankui/yvtian-zhankui.github.io.git master:gh-pages
