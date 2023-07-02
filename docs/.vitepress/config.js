@@ -26,16 +26,6 @@ var sidebarTemp = [
                 { text: 'Spring整合Junit单元测试', link: '/guide/Spring/Spring整合Junit单元测试' },
               ]
               },
-              {
-                text: 'SpringMVC',
-                collapsible: true,
-                collapsed: true,
-                items: [
-                { text: '笔记首页', link: '/guide/01' }, 
-                { text: '验证码', link: '/guide/02' },
-                
-              ]
-              }
             ];
 
 
@@ -80,7 +70,7 @@ export default {
             items: [
               {
                 items: [
-                  { text: "其他1", link: "/item-A1" },
+                  { text: "私密", link: "/privite/video/" },
                   { text: "Item A2", link: "/item-A2" },
                 ],
               },
@@ -96,7 +86,9 @@ export default {
          socialLinks: [ //右侧导航图标
           { icon: "github", link: "https://github.com/yvtian-zhankui/yvtian-zhankui.github.io" },
         ],
-         sidebar: sidebarTemp,
+         sidebar: {
+            '/guide/' : sidebarTemp
+         } ,
         
     },
    
