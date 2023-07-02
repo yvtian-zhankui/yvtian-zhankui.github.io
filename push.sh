@@ -1,3 +1,3 @@
 git add -A
-git commit -m 'deploy'
-git push -f
+git commit -m 'deploy' 
+git push -f main
