@@ -17,8 +17,6 @@ hero:
       link: https://github.com/yvtian-zhankui
 
 
-
-
 features:
   - icon: ⚡️
     title: 闪电图标
