@@ -24,6 +24,11 @@ var sidebarTemp = [
                 { text: 'Spring容器', link: '/guide/Spring/Spring容器' },
                 { text: 'JdbcTemplate基本使用', link: '/guide/Spring/JdbcTemplate基本使用' },
                 { text: 'Spring整合Junit单元测试', link: '/guide/Spring/Spring整合Junit单元测试' },
+                { text: 'AOP简介', link: '/guide/Spring/AOP简介' }, 
+                { text: 'Aop基于xml和注解应用', link: '/guide/Spring/Aop基于xml和注解应用' },
+                { text: 'AOP通知类型【重点】', link: '/guide/Spring/AOP通知类型【重点】' },
+                { text: 'AOP案例', link: '/guide/Spring/AOP案例' },
+                { text: 'Spring事务管理', link: '/guide/Spring/Spring事务管理' },
               ]
               },
             ];
