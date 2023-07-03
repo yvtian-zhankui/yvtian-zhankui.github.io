@@ -1,4 +1,4 @@
-3.1 原始Junit测试Spring的问题
+## 3.1 原始Junit测试Spring的问题
 
 在测试类中，每个测试方法都有以下两行代码：
 
@@ -9,13 +9,13 @@
 
 这两行代码的作用是获取容器，如果不写的话，直接会提示空指针异常。所以又不能轻易删掉。
 
-### 3.2 上述问题解决思路
+## 3.2 上述问题解决思路
 
 让SpringJunit负责创建Spring容器，但是需要将配置文件的名称告诉它
 
 将需要进行测试Bean直接在测试类中进行注入
 
-### 3.3 Spring集成Junit步骤
+## 3.3 Spring集成Junit步骤
 
 ①导入spring集成Junit的坐标
 
@@ -43,6 +43,56 @@
   <version>5.1.9.RELEASE</version>
 </dependency>
 ```
+
+**可能会出现冲突**  用下面这个
+
+```xml
+<dependencies>
+    <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-context</artifactId>
+        <version>6.0.8</version>
+    </dependency>
+    <dependency>
+        <groupId>mysql</groupId>
+        <artifactId>mysql-connector-java</artifactId>
+        <version>8.0.32</version>
+    </dependency>
+    <dependency>
+        <groupId>com.alibaba</groupId>
+        <artifactId>druid</artifactId>
+        <version>1.1.12</version>
+    </dependency>
+    <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-tx</artifactId>
+        <version>5.3.23</version>
+    </dependency>
+    <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-test</artifactId>
+        <version>5.3.23</version>
+    </dependency>
+    <dependency>
+        <groupId>junit</groupId>
+        <artifactId>junit</artifactId>
+        <version>4.12</version>
+        <scope>test</scope>
+    </dependency>
+    <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-jdbc</artifactId>
+        <version>5.3.23</version>
+    </dependency>
+    <dependency>
+        <groupId>org.projectlombok</groupId>
+        <artifactId>lombok</artifactId>
+        <version>1.18.24</version>
+    </dependency>
+</dependencies>
+```
+
+
 
 【第二，三，四步】加载配置文件或者配置类
 
@@ -73,7 +123,7 @@ public class AccountServiceTest {
 
 ![](https://tcs-devops.aliyuncs.com/storage/112vd3cfccf343e9705e169746559242142a?Signature=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJBcHBJRCI6IjVlNzQ4MmQ2MjE1MjJiZDVjN2Y5YjMzNSIsIl9hcHBJZCI6IjVlNzQ4MmQ2MjE1MjJiZDVjN2Y5YjMzNSIsIl9vcmdhbml6YXRpb25JZCI6IiIsImV4cCI6MTY4ODYwMzUyNywiaWF0IjoxNjg3OTk4NzI3LCJyZXNvdXJjZSI6Ii9zdG9yYWdlLzExMnZkM2NmY2NmMzQzZTk3MDVlMTY5NzQ2NTU5MjQyMTQyYSJ9.BA_Ha3IBwEymgYJ75jNaqdqXCOqtwaevcGLEsAZcwmI&download=%E5%9B%BE%E7%89%87.png "")
 
-### 4 junit断言测试：
+## 4 junit断言测试：
 
 JUnit为所有原语类型、对象和数组（原语或对象）提供重载断言方法。参数顺序为预期值后接实际值。或者，第一个参数可以是失败时输出的字符串消息。
 
@@ -113,7 +163,7 @@ assertEquals(3, map.size());
 assertTrue(set.containsAll(Arrays.asList("A", "B", "C")));
 ```
 
-**4.3案例操作dao**
+## **4.3案例操作dao**
 
 **查询所有断言测试**
 
