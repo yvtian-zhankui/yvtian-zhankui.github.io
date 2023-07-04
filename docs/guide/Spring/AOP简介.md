@@ -110,7 +110,7 @@ public class ProxyTest {
 
 ![](https://tcs-devops.aliyuncs.com/storage/112v83675ec78351559f4a124283568c3c5d?Signature=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJBcHBJRCI6IjVlNzQ4MmQ2MjE1MjJiZDVjN2Y5YjMzNSIsIl9hcHBJZCI6IjVlNzQ4MmQ2MjE1MjJiZDVjN2Y5YjMzNSIsIl9vcmdhbml6YXRpb25JZCI6IiIsImV4cCI6MTY4ODk1ODI4NSwiaWF0IjoxNjg4MzUzNDg1LCJyZXNvdXJjZSI6Ii9zdG9yYWdlLzExMnY4MzY3NWVjNzgzNTE1NTlmNGExMjQyODM1NjhjM2M1ZCJ9.ZMsQbS1QSHOL-_QhtdicEcPij8KJU2tRX7cLmTF9R3c&download=%E5%9B%BE%E7%89%87.png "")
 
-1.6 cglib 的动态代理
+1.6 cglib 的动态代理 **无需引入依赖 **  
 
 ①目标类
 
