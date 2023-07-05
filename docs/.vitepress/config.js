@@ -41,7 +41,7 @@ var sidebarSpring = [
 
 var sidebarSpringMVC = [
             {
-                text: 'Servlet',
+                text: 'SpringMVC',
                 collapsible: true,
                 collapsed: false,
                 items: [
