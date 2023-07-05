@@ -302,15 +302,15 @@ public class SpringTxTest {
 
 **代码实现：**
 
-	前期工作准备
-	
-	1、编辑jdbcConfig配置对事务处理的加载
-	
-	2、SpringConfig配置类的构建
-	
-	3、使用注解@Transactional 处理业务层转账操作
-	
-	4、测试运行
+前期工作准备
+
+1、编辑jdbcConfig配置对事务处理的加载
+
+2、SpringConfig配置类的构建
+
+3、使用注解@Transactional 处理业务层转账操作
+
+4、测试运行
 
 **实现步骤**
 
