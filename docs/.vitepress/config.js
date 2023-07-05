@@ -15,6 +15,7 @@ var sidebarTemp = [
                 collapsible: true,
                 collapsed: false,
                 items: [
+                { text: 'Spring合集版', link: '/guide/Spring/itheima/Spring' }, 
                 { text: 'Spring简介', link: '/guide/Spring/Spring简介' }, 
                 { text: 'IOC和DI入门', link: '/guide/Spring/IOC和DI入门' },
                 { text: 'Bean的基础配置', link: '/guide/Spring/Bean的基础配置' },
