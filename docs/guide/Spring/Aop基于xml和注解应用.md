@@ -78,6 +78,22 @@ public class MyAspect {
 
 ![](https://tcs-devops.aliyuncs.com/storage/112vfa9fd1a8048d38f7709476b7ffe21a1d?Signature=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJBcHBJRCI6IjVlNzQ4MmQ2MjE1MjJiZDVjN2Y5YjMzNSIsIl9hcHBJZCI6IjVlNzQ4MmQ2MjE1MjJiZDVjN2Y5YjMzNSIsIl9vcmdhbml6YXRpb25JZCI6IiIsImV4cCI6MTY4ODk2MDYwMSwiaWF0IjoxNjg4MzU1ODAxLCJyZXNvdXJjZSI6Ii9zdG9yYWdlLzExMnZmYTlmZDFhODA0OGQzOGY3NzA5NDc2YjdmZmUyMWExZCJ9.i0KAGEmPrTDn4GkJNvhmE5vtDuKID5mht2teKFKQZr0&download=%E5%9B%BE%E7%89%87.png "")
 
+```xml
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="
+            http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+            http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+            http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+
+</beans>
+```
+
+
+
 **第四步**  在 applicationContext.xml 中配置织入关系
 
 配置切点表达式和前置增强的织入关系
