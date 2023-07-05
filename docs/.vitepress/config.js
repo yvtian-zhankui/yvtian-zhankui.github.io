@@ -15,7 +15,7 @@ var sidebarTemp = [
                 collapsible: true,
                 collapsed: false,
                 items: [
-                { text: 'Spring合集版', link: '/guide/Spring/itheima/Spring' }, 
+                
                 { text: 'Spring简介', link: '/guide/Spring/Spring简介' }, 
                 { text: 'IOC和DI入门', link: '/guide/Spring/IOC和DI入门' },
                 { text: 'Bean的基础配置', link: '/guide/Spring/Bean的基础配置' },
@@ -30,6 +30,8 @@ var sidebarTemp = [
                 { text: 'AOP通知类型【重点】', link: '/guide/Spring/AOP通知类型【重点】' },
                 { text: 'AOP案例', link: '/guide/Spring/AOP案例' },
                 { text: 'Spring事务管理', link: '/guide/Spring/Spring事务管理' },
+
+                { text: 'Spring合集版', link: '/guide/Spring/itheima/Spring' }, 
               ]
               },
             ];
