@@ -1,4 +1,4 @@
-var sidebarTemp = [
+var sidebarServlet = [
             {
                 text: 'Servlet',
                 collapsible: true,
@@ -10,6 +10,9 @@ var sidebarTemp = [
                 { text: '监听器-Listener', link: '/guide/Servlet/监听器-Listener' }, 
               ]
               },
+              ];
+
+var sidebarSpring = [
               {
                 text: 'Spring',
                 collapsible: true,
@@ -36,7 +39,18 @@ var sidebarTemp = [
               },
             ];
 
-
+var sidebarSpringMVC = [
+            {
+                text: 'Servlet',
+                collapsible: true,
+                collapsed: false,
+                items: [
+                { text: 'SpringMVC注解实现', link: '/guide/SpringMVC/SpringMVC注解实现' }, 
+                { text: '组件介绍', link: '/guide/SpringMVC/组件介绍' }, 
+                { text: 'Spring MVC教程', link: '/guide/SpringMVC/SpringMVC教程' }, 
+              ]
+              },
+              ];
 
 export default {
     markdown: {
@@ -94,7 +108,9 @@ export default {
           { icon: "github", link: "https://github.com/yvtian-zhankui/yvtian-zhankui.github.io" },
         ],
          sidebar: {
-            '/guide/' : sidebarTemp
+            '/guide/Servlet/' : sidebarServlet,
+            '/guide/Spring/' : sidebarSpring,
+            '/guide/SpringMVC/' : sidebarSpringMVC,
          } ,
         
     },
