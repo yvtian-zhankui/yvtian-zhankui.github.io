@@ -78,16 +78,15 @@ export default {
             items: [
               {
                 items: [
-                  { text: "私密", link: "/privite/video/" },
-                  { text: "Item A2", link: "/item-A2" },
+                  { text: "饮食记录", link: "/privite/健康/饮食" },
                 ],
               },
-              {
-                items: [
-                  { text: "Item B1", link: "/item-B1" },
-                  { text: "Item B2", link: "/item-B2" },
-                ],
-              },
+              // {
+              //   items: [
+              //     { text: "Item B1", link: "/item-B1" },
+              //     { text: "Item B2", link: "/item-B2" },
+              //   ],
+              // },
             ],
       },
     ],

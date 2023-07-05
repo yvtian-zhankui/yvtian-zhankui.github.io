@@ -6,7 +6,7 @@ dist
 cache
 .eslintcache
 components.d.ts
-docs/privite
+# docs/privite
 
 # local env files
 .env.local
