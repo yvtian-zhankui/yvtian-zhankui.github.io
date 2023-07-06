@@ -34,6 +34,7 @@ var sidebarSpring = [
                 { text: 'AOP案例', link: '/guide/Spring/AOP案例' },
                 { text: 'Spring事务管理', link: '/guide/Spring/Spring事务管理' },
                 { text: 'spring整合logBack日志框架', link: '/guide/Spring/spring整合logBack日志框架' },
+                { text: 'Spring总结', link: '/guide/Spring/Spring总结' },
                 { text: 'Spring合集版', link: '/guide/Spring/itheima/Spring' }, 
               ]
               },
