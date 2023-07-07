@@ -38,9 +38,9 @@ Spring MVC 是一个模型 - 视图 - 控制器（MVC）的Web框架建立在中
 
 ### SpringMVC快速入门
 
-	需求：客户端发起请求，服务器端接收请求，执行逻辑并进行视图跳转。
+需求：客户端发起请求，服务器端接收请求，执行逻辑并进行视图跳转。
 
-	**开发步骤**
+**开发步骤**
 
 ①导入SpringMVC相关坐标
 
@@ -271,11 +271,11 @@ public class HelloWord2 implements Controller {
 
 1.4.2 前端控制器
 
-     Spring Web 模型-视图-控制（MVC）框架是围绕 ****DispatcherServlet**** 设计的，DispatcherServlet是整个流程控制的中心，由它调用其它组件处理用户的请求和响应，，DispatcherServlet的存在降低了组件之间的耦合性。Spring Web MVC ***DispatcherServlet*** 的请求处理的****工作流程****如下图所示：
+>  Spring Web 模型-视图-控制（MVC）框架是围绕 ****DispatcherServlet**** 设计的，DispatcherServlet是整个流程控制的中心，由它调用其它组件处理用户的请求和响应，，DispatcherServlet的存在降低了组件之间的耦合性。Spring Web MVC ***DispatcherServlet*** 的请求处理的****工作流程****如下图所示：
 
 ![](https://tcs-devops.aliyuncs.com/storage/112v3f615484418eb020008bbf0db4030e82?Signature=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJBcHBJRCI6IjVlNzQ4MmQ2MjE1MjJiZDVjN2Y5YjMzNSIsIl9hcHBJZCI6IjVlNzQ4MmQ2MjE1MjJiZDVjN2Y5YjMzNSIsIl9vcmdhbml6YXRpb25JZCI6IiIsImV4cCI6MTY4OTE2MTI3NCwiaWF0IjoxNjg4NTU2NDc0LCJyZXNvdXJjZSI6Ii9zdG9yYWdlLzExMnYzZjYxNTQ4NDQxOGViMDIwMDA4YmJmMGRiNDAzMGU4MiJ9.sN3Y1ZJfnNKtv-DVYtDv3Wb9gOH7qff9QVaAB39qmHA&download=%E5%9B%BE%E7%89%87.png "")
 
-			
+​			
 
 ![](https://tcs-devops.aliyuncs.com/storage/112vb6f61deb715164d7d583df052f70cc4c?Signature=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJBcHBJRCI6IjVlNzQ4MmQ2MjE1MjJiZDVjN2Y5YjMzNSIsIl9hcHBJZCI6IjVlNzQ4MmQ2MjE1MjJiZDVjN2Y5YjMzNSIsIl9vcmdhbml6YXRpb25JZCI6IiIsImV4cCI6MTY4OTE2MTI3NCwiaWF0IjoxNjg4NTU2NDc0LCJyZXNvdXJjZSI6Ii9zdG9yYWdlLzExMnZiNmY2MWRlYjcxNTE2NGQ3ZDU4M2RmMDUyZjcwY2M0YyJ9.VJvF6qV1gBbCqrobqtFaLAt4SEku2-ixb6SMpGtpje0&download=%E5%9B%BE%E7%89%87.png "")
 
