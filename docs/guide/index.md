@@ -21,6 +21,6 @@ features:
   - icon: 🛠️
     title: SpringMVC
     details: Spring和MVC的结合体
-    link: /guide/SpringMVC/SpringMVC注解实现
+    link: /guide/SpringMVC/SpringMVC教程
 
 ---
