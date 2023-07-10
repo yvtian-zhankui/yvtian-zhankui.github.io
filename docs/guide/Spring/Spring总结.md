@@ -102,7 +102,7 @@ public class MyProcessor implements BeanDefinitionRegistryPostProcessor {
 
 ## 注解前置案例（Bean工厂后处理器应用）
 
-![image-20230706202013710](assets/image-20230706202013710.png)
+![1](assets/image-20230706202013710.png)
 
 ### 1.编写注解
 
