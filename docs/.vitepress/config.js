@@ -53,6 +53,19 @@ var sidebarSpringMVC = [
               },
               ];
 
+var sidebarMS = [
+            {
+                text: '面试',
+                collapsible: true,
+                collapsed: false,
+                items: [
+                    { text: 'Redis面试题', link: '/guide/面试/Redis面试题' }, 
+                    { text: 'MySQL面试题', link: '/guide/面试/MySQL面试题' }, 
+                    { text: '框架篇面试题', link: '/guide/面试/框架篇面试题' },                                
+              ]
+              },
+              ];
+
 export default {
     markdown: {
     //lineNumbers: true
@@ -112,6 +125,7 @@ export default {
             '/guide/Servlet/' : sidebarServlet,
             '/guide/Spring/' : sidebarSpring,
             '/guide/SpringMVC/' : sidebarSpringMVC,
+            '/guide/面试/' : sidebarMS,
          } ,
         
     },
