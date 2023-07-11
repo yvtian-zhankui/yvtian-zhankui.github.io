@@ -46,9 +46,12 @@ var sidebarSpringMVC = [
                 collapsible: true,
                 collapsed: false,
                 items: [
-                    { text: 'Spring MVC教程', link: '/guide/SpringMVC/SpringMVC教程' }, 
+                    { text: '基础入门', link: '/guide/SpringMVC/SpringMVC教程' }, 
                     { text: '组件介绍', link: '/guide/SpringMVC/组件介绍' }, 
-                { text: 'SpringMVC注解实现', link: '/guide/SpringMVC/SpringMVC注解实现' },                                 
+                    { text: '注解实现', link: '/guide/SpringMVC/SpringMVC注解实现' }, 
+                    { text: '类型转换', link: '/guide/SpringMVC/类型转换' },   
+                    { text: '数据交互', link: '/guide/SpringMVC/数据交互' },  
+                    { text: '异常处理', link: '/guide/SpringMVC/异常处理' },                                
               ]
               },
               ];
