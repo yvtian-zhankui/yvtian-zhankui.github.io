@@ -79,7 +79,10 @@ var sidebarMyBatis = [
                 items: [
                     { text: 'Mybatis简介', link: '/guide/MyBatis/Mybatis简介' }, 
                     { text: 'MyBatis的相关api', link: '/guide/MyBatis/MyBatis的相关api' },
-                    { text: 'Mybatis核心配置文件介绍', link: '/guide/MyBatis/Mybatis核心配置文件介绍' },                       
+                    { text: 'Mybatis核心配置文件介绍', link: '/guide/MyBatis/Mybatis核心配置文件介绍' },  
+                    { text: '动态sql语句', link: '/guide/MyBatis/动态sql语句' }, 
+                    { text: '分页插件', link: '/guide/MyBatis/分页插件' },
+                    { text: 'MyBatis的多表操作', link: '/guide/MyBatis/MyBatis的多表操作' },                     
               ]
               },
               ];
