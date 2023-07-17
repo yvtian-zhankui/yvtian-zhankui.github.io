@@ -24,6 +24,11 @@ features:
     link: /guide/SpringMVC/SpringMVC教程
 
   - icon: 🎓
+    title: Mybatis
+    details: JDBC
+    link: /guide/MyBatis/Mybatis简介
+
+  - icon: 🎓
     title: 面试题
     details: 基础框架
     link: /guide/面试/Redis面试题

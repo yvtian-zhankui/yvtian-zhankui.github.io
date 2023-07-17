@@ -71,6 +71,19 @@ var sidebarMS = [
               },
               ];
 
+var sidebarMyBatis = [
+            {
+                text: 'MyBatis',
+                collapsible: true,
+                collapsed: false,
+                items: [
+                    { text: 'Mybatis简介', link: '/guide/MyBatis/Mybatis简介' }, 
+                    { text: 'MyBatis的相关api', link: '/guide/MyBatis/MyBatis的相关api' },
+                    { text: 'Mybatis核心配置文件介绍', link: '/guide/MyBatis/Mybatis核心配置文件介绍' },                       
+              ]
+              },
+              ];
+
 export default {
     markdown: {
     //lineNumbers: true
@@ -131,6 +144,7 @@ export default {
             '/guide/Spring/' : sidebarSpring,
             '/guide/SpringMVC/' : sidebarSpringMVC,
             '/guide/面试/' : sidebarMS,
+            '/guide/MyBatis/':sidebarMyBatis,
          } ,
         
     },
