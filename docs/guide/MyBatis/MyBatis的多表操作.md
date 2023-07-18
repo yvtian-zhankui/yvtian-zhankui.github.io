@@ -1,4 +1,4 @@
-3.1 多表模型介绍
+### 3.1 多表模型介绍
 
 我们之前学习的都是基于单表操作的，而实际开发中，随着业务难度的加深，肯定需要多表操作的。 
 
@@ -7,6 +7,138 @@
 - 一对多：在多的一方建立外键，关联一的一方的主键。
 
 - 多对多：借助中间表，中间表至少两个字段，分别关联两张表的主键。    
+
+3.2 多表模型一对一操作
+
+1. 一对一模型： 人和身份证，一个人只有一个身份证
+
+1. 代码实现运行结果：	
+
+    1. 步骤一: sql语句准备
+
+```sql
+CREATE TABLE person(    
+id INT PRIMARY KEY AUTO_INCREMENT,    
+NAME VARCHAR(20),    
+age INT);
+INSERT INTO person VALUES (NULL,'张三',23);
+INSERT INTO person VALUES (NULL,'李四',24);
+INSERT INTO person VALUES (NULL,'王五',25);
+
+CREATE TABLE card(    
+id INT PRIMARY KEY AUTO_INCREMENT,    
+ number VARCHAR(30),   
+ pid INT,    
+CONSTRAINT cp_fk FOREIGN KEY (pid) REFERENCES person(id));
+
+INSERT INTO card VALUES (NULL,'12345',3);
+INSERT INTO card VALUES (NULL,'23456',2);
+INSERT INTO card VALUES (NULL,'34567',1);
+```
+
+创建实体对象
+
+```java
+@Data
+public class Card {
+    private int id;
+    private int number;
+    private int pid;  
+    private Person p;
+
+}
+@Data
+public class Person {
+    private int id;
+    private String name;
+    private int age;
+}
+
+```
+
+
+
+### 步骤二：编写dao接口
+
+```java
+public interface OneToOneDao {
+    //查询全部card数据
+    public List<Card> findAll();
+}
+```
+
+### 步骤三:配置文件
+
+```xml
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.eu.themoss.mapper.OneToOneMapper">
+    <resultMap id="OneToOne" type="card">
+        <id property="id" column="id"/>
+        <result property="number" column="number"/>
+        <result property="pid" column="pid"/>
+        <association property="p" javaType="org.eu.themoss.model.Person">
+            <id property="id" column="pid"/>
+            <result property="age" column="age"/>
+            <result property="name" column="name"/>
+        </association>
+    </resultMap>
+
+
+    <select id="selectAll" resultMap="OneToOne">
+        select *
+        from card c,
+             person p
+        where c.pid = p.id
+    </select>
+</mapper>
+```
+
+### 步骤四：配置核心配置文件
+
+```xml
+<mapper resource="com/by/dao/onetoOneDao.xml"/>
+```
+
+### 步骤五：测试类 
+
+```java
+@Test
+        public void onetest(){
+            SqlSession sqlSession = MybatisUtils.getSqlSession(true);
+            //获取UserDao接口实现类对象
+           OneToOneDao mapper = sqlSession.getMapper(OneToOneDao.class);
+            List<Card> list = mapper.findAll();
+            for (Card card : list) {
+                System.out.println(card);
+            }
+            MybatisUtils.closeSqlSession(sqlSession);
+        }
+
+```
+
+运行结果：
+
+![](https://tcs-devops.aliyuncs.com/storage/112w4d53e88160b18aba5d2cd0991b308432?Signature=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJBcHBJRCI6IjVlNzQ4MmQ2MjE1MjJiZDVjN2Y5YjMzNSIsIl9hcHBJZCI6IjVlNzQ4MmQ2MjE1MjJiZDVjN2Y5YjMzNSIsIl9vcmdhbml6YXRpb25JZCI6IjY0NDljNGQwODhhZWYwZGI0YjhjMWNkMyIsImV4cCI6MTY5MDI0Njg5NiwiaWF0IjoxNjg5NjQyMDk2LCJyZXNvdXJjZSI6Ii9zdG9yYWdlLzExMnc0ZDUzZTg4MTYwYjE4YWJhNWQyY2QwOTkxYjMwODQzMiJ9.zeJwWHRQgTy1S4GFiwjrxyEKgcMWE9eK92841g9RohE&download=image.png "")
+
+一对一配置总结
+
+```xml
+<resultMap>：配置字段和对象属性的映射关系标签。
+    id 属性：唯一标识
+    type 属性：实体对象类型
+<id>：配置主键映射关系标签。
+<result>：配置非主键映射关系标签。
+    column 属性：表中字段名称
+    property 属性： 实体对象变量名称
+<association>：配置被包含对象的映射关系标签。
+    property 属性：被包含对象的变量名
+    javaType 属性：被包含对象的数据类型
+```
+
+
 
 ### 3.3 多表模型一对多操作
 
