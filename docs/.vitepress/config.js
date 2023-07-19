@@ -82,7 +82,10 @@ var sidebarMyBatis = [
                     { text: 'Mybatis核心配置文件介绍', link: '/guide/MyBatis/Mybatis核心配置文件介绍' },  
                     { text: '动态sql语句', link: '/guide/MyBatis/动态sql语句' }, 
                     { text: '分页插件', link: '/guide/MyBatis/分页插件' },
-                    { text: 'MyBatis的多表操作', link: '/guide/MyBatis/MyBatis的多表操作' },                     
+                    { text: 'MyBatis的多表操作', link: '/guide/MyBatis/MyBatis的多表操作' },  
+                    { text: 'MyBatis注解开发', link: '/guide/MyBatis/MyBatis注解开发' }, 
+                    { text: 'Sql构建', link: '/guide/MyBatis/Sql构建' },
+                    { text: 'mybatis缓存机制', link: '/guide/MyBatis/mybatis缓存机制' },                   
               ]
               },
               ];
