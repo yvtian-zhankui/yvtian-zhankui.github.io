@@ -130,7 +130,7 @@ export default {
             items: [
               {
                 items: [
-                  { text: "饮食记录", link: "/privite/健康/饮食" },
+                  { text: "破解插件", link: "/privite/tip/破解MyBatisCodeHelper" },
                 ],
               },
               // {
