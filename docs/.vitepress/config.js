@@ -85,7 +85,9 @@ var sidebarMyBatis = [
                     { text: 'MyBatis的多表操作', link: '/guide/MyBatis/MyBatis的多表操作' },  
                     { text: 'MyBatis注解开发', link: '/guide/MyBatis/MyBatis注解开发' }, 
                     { text: 'Sql构建', link: '/guide/MyBatis/Sql构建' },
-                    { text: 'mybatis缓存机制', link: '/guide/MyBatis/mybatis缓存机制' },                   
+                    { text: 'mybatis缓存机制', link: '/guide/MyBatis/mybatis缓存机制' },  
+                    { text: 'Spring整合Mybatis', link: '/guide/MyBatis/Spring整合Mybatis' },
+                    { text: '整合mybatisplus', link: '/guide/MyBatis/整合mybatisplus' },                  
               ]
               },
               ];
