@@ -46,6 +46,7 @@ var sidebarSpringMVC = [
                 collapsible: true,
                 collapsed: false,
                 items: [
+                    { text: '自我总结', link: '/guide/SpringMVC/MVC笔记/MVC自我总结' },
                     { text: '基础入门', link: '/guide/SpringMVC/SpringMVC教程' }, 
                     { text: '组件介绍', link: '/guide/SpringMVC/组件介绍' }, 
                     { text: '注解实现', link: '/guide/SpringMVC/SpringMVC注解实现' }, 

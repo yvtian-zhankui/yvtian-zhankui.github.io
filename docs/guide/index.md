@@ -21,7 +21,7 @@ features:
   - icon: 🛠️
     title: SpringMVC
     details: Spring和MVC的结合体
-    link: /guide/SpringMVC/SpringMVC教程
+    link: /guide/SpringMVC/MVC笔记/MVC自我总结
 
   - icon: 🎓
     title: Mybatis
