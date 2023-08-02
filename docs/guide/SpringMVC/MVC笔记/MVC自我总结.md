@@ -947,6 +947,40 @@ public Object response2() throws IOException {
 
 @RestController == @Controller + @ResponseBody
 
+### 统一数据返回值格式
+
+使用接口`ResponseBodyAdvice<T>` 
+
+对Controller返回的`{@code @ResponseBody}or a {@code ResponseEntity}` 后,`{@code HttpMessageConverter}` 类型转换之前拦截
+
+```java
+
+public interface ResponseBodyAdvice<T> {
+
+    boolean supports(MethodParameter returnType, Class<? extends HttpMessageConverter<?>> converterType);
+
+    @Nullable
+    T beforeBodyWrite(@Nullable T body, MethodParameter returnType, MediaType selectedContentType,
+          Class<? extends HttpMessageConverter<?>> selectedConverterType,
+          ServerHttpRequest request, ServerHttpResponse response);
+
+}
+```
+
+supports方法:    判断是否要执行beforeBodyWrite方法,true为执行,false不执行.  通过该方法可以选择哪些类或那些方法的response要进行处理, 其他的不进行处理.
+
+beforeBodyWrite方法:    对response方法进行具体操作处理
+
+对于返回值类型为字符串类型，或者消息转换器是StringHttpMessageConverter，应手动将统一返回类对象转为JSON直接return
+
+```java
+if (httpMessageConverter == StringHttpMessageConverter.class) {
+    return JSONUtil.toJsonStr(dto);
+}
+```
+
+
+
 ## SpringMVC的拦截器
 
 ### 拦截器 Interceptor 简介
@@ -1518,4 +1552,278 @@ protected void doDispatch(HttpServletRequest request, HttpServletResponse respon
 }
 ```
 
-**MVC结束** 
+## SpringMVC的异常处理机制
+
+###  SpringMVC 异常的处理流程
+
+异常分为编译时异常和运行时异常，编译时异常我们 try-cache 进行捕获，捕获后自行处理，而运行时异常是不 可预期的，就需要规范编码来避免，在SpringMVC 中，不管是编译异常还是运行时异常，都可以最终由 SpringMVC提供的异常处理器进行统一处理，这样就避免了随时随地捕获处理的繁琐性。
+
+当然除了繁琐之外，我们在进行前后端分离异步开发时，往往返回统一格式的结果给客户端，例如： {"code":200,"message":"","data":{"username":"haohao","age":null}}，即使报异常了，也不能把状态码500直 接扔给客户端丢给用户，需要将异常转换成符合上面格式的数据响应给客户端更友好。
+
+SpringMVC 处理异常的思路是，一路向上抛，都抛给前端控制器 DispatcherServlet ，DispatcherServlet 在调用异常处理器ExceptionResolver进行处理，如下图：
+
+![image-20230802203144357](assets/image-20230802203144357.png) 
+
+### SpringMVC 的异常处理方式
+
+SpringMVC 提供了以下三种处理异常的方式： 
+
+⚫ 简单异常处理器：使用SpringMVC 内置的异常处理器处理 SimpleMappingExceptionResolver； 
+
+⚫ 自定义异常处理器：实现HandlerExceptionResolver接口，自定义异常进行处理； 
+
+⚫ 注解方式：使用@ControllerAdvice + @ExceptionHandler 来处理。
+
+使用SimpleMappingExceptionResolver处理一些简单异常，配置开启SimpleMappingExceptionResolver， 并指定异常捕获后的处理动作，当发生了异常后，会被 SimpleMappingExceptionResolver 处理，跳转到我们 配置的错误页面error.html给用户进行友好展示
+
+```xml
+<!--配置简单异常处理器-->
+<bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+     <!-- 异常捕获后动作：展示视图 -->
+     <property name="defaultErrorView" value="/error.html"/>
+</bean>
+```
+
+可以在配置SimpleMappingExceptionResolver时，指定一些参数，例如：异常的类型
+
+```xml
+<bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+     <property name="defaultErrorView" value="/error.html"/>
+         <property name="exceptionMappings">
+             <props>
+             <!-- 配置异常类型对应的展示视图 -->
+             <prop key="java.lang.RuntimeException">/error.html</prop>
+             <prop key="java.io.FileNotFoundException">/io.html</prop>
+         </props>
+     </property>
+</bean>
+```
+
+注解方式配置简单映射异常处理器
+
+```java
+@Bean
+public SimpleMappingExceptionResolver simpleMappingExceptionResolver(){
+     //创建SimpleMappingExceptionResolver
+     SimpleMappingExceptionResolver resolver = new SimpleMappingExceptionResolver();
+     //设置默认错误展示视图
+     resolver.setDefaultErrorView("/error.html");
+     //定义Properties设置特殊异常对应的映射视图
+     Properties properties = new Properties();
+     properties.setProperty("java.lang.RuntimeException","/error.html");
+     properties.setProperty("java.io.FileNotFoundException","/io.html");
+     resolver.setExceptionMappings(properties);
+     return resolver;
+}
+```
+
+自定义异常处理器，实现HandlerExceptionResolver接口自定义异常处理器，可以完成异常逻辑的处理
+
+```java
+public class MyHandlerExceptionResolver implements HandlerExceptionResolver {
+     @Override
+     //参数Object是当前目标方法处理器对象HandlerMethod
+     public ModelAndView resolveException(HttpServletRequest httpServletRequest, 
+    HttpServletResponse httpServletResponse, Object o, Exception e) {
+         ModelAndView modelAndView = new ModelAndView();
+         modelAndView.setViewName("/error.html");
+         return modelAndView;
+     }
+}
+
+```
+
+交给Spring管理异常处理器
+
+```xml
+<bean class="com.itheima.exception.MyHandlerExceptionResolver"></bean>
+```
+
+自定义异常处理器，返回Json格式字符串信息
+
+```java
+@Component
+public class MyHandlerExceptionResolver implements HandlerExceptionResolver {
+     @Override
+     public ModelAndView resolveException(HttpServletRequest httpServletRequest, 
+    HttpServletResponse httpServletResponse, Object o, Exception e) {
+         //编写要返回的json格式的字符串
+         String jsonStr = "{\"code\":0,\"message\":\"error\",\"data\":\"\"}";
+         try {
+         	httpServletResponse.getWriter().write(jsonStr);
+         } catch (IOException e1) {
+         	e1.printStackTrace();
+         }
+         return null;
+     }
+}
+```
+
+使用注解 @ControllerAdvice + @ExceptionHandler 配置异常，@ControllerAdvice 注解本质是一个 @Component，也会被扫描到，与此同时，具备AOP功能，默认情况下对所有的Controller都进行拦截操作， 拦截后干什么呢？就需要在结合@ExceptionHandler、@InitBinder、@ModelAttribute 注解一起使用了，此 处我们讲解的是异常，所以是@ControllerAdvice + @ExceptionHandler的组合形式。
+
+编写全局异常处理器类，使用@ControllerAdvice标注，且@ExceptionHandler指定异常类型
+
+```java
+@ControllerAdvice
+public class GlobalExceptionHandler {
+    
+     @ExceptionHandler(RuntimeException.class)
+     public ModelAndView runtimeHandleException(RuntimeException e){
+         System.out.println("全局异常处理器执行...."+e);
+         ModelAndView modelAndView = new ModelAndView("/error.html");
+         return modelAndView;
+     }
+    
+     @ExceptionHandler(IOException.class)
+     @ResponseBody
+     public ResultInfo ioHandleException(IOException e){
+         //模拟一个ResultInfo
+         ResultInfo resultInfo = new ResultInfo(0,"IOException",null);
+         return resultInfo;
+     }
+}
+```
+
+如果全局异常处理器响应的数据都是Json格式的字符串的话，可以使用@RestControllerAdvice替代 @ControllerAdvice 和 @ResponseBody
+
+```java
+@RestControllerAdvice
+public class GlobalExceptionHandler {
+    
+     @ExceptionHandler(RuntimeException.class)
+     public ModelAndView runtimeHandleException(RuntimeException e){
+         System.out.println("全局异常处理器执行...."+e);
+         ModelAndView modelAndView = new ModelAndView("/error.html");
+         return modelAndView;
+     }
+    
+     @ExceptionHandler(IOException.class)
+     @ResponseBody
+     public ResultInfo ioHandleException(IOException e){
+         //模拟一个ResultInfo
+         ResultInfo resultInfo = new ResultInfo(0,"IOException",null);
+         return resultInfo;
+     }
+}
+```
+
+ 异常处理机制原理剖析
+
+初始化加载的处理器异常解析器，SpringMVC 的前端控制器在进行初始化的时候，会初始化处理器异常解析器 HandlerExceptionResolver
+
+```java
+//初始化处理器异常解析器
+this.initHandlerExceptionResolvers(context);
+```
+
+```java
+private void initHandlerExceptionResolvers(ApplicationContext context) {
+        //从容器中获得HandlerExceptionResolver的Map集合
+        Map<String, HandlerExceptionResolver> matchingBeans =
+        BeanFactoryUtils.beansOfTypeIncludingAncestors(context, HandlerExceptionResolver.class, true,
+        false);
+        //如果容器中没有HandlerExceptionResolver的话，则加载默认的HandlerExceptionResolver
+        if (this.handlerExceptionResolvers == null) {
+            //从dispatcherServlet.properties中加载
+            this.handlerExceptionResolvers = this.getDefaultStrategies(context,
+            HandlerExceptionResolver.class);
+        }
+}
+```
+
+加载DispatcherServlet.properties中默认的异常处理器
+
+```properties
+org.springframework.web.servlet.HandlerExceptionResolver=org.springframework.web.servlet.mvc.me
+thod.annotation.ExceptionHandlerExceptionResolver,\
+ org.springframework.web.servlet.mvc.annotation.ResponseStatusExceptionResolver,\
+ org.springframework.web.servlet.mvc.support.DefaultHandlerExceptionResolver
+```
+
+配置了自定义的异常处理器后，默认的异常处理器就不会被加载，当配置`<mvc:annotation-driven />`或配置了注解@EnableWebMvc后，默认异常处理器和自定的处理器异常解析器都会被注册
+
+异常处理器加载完毕后，当发生异常时，就会进行处理，跟踪 DispatcherServlet 的 doDispatch() 方法
+
+```java
+protected void doDispatch(HttpServletRequest request, HttpServletResponse response) {
+     Object dispatchException = null;//定义异常
+     try {
+     	// ... 省略代码 ...
+     } catch (Exception e) {
+     	dispatchException = e;
+     } catch (Throwable te) {
+     	dispatchException = new NestedServletException("Handler dispatch failed", te);
+     }
+     //视图处理、拦截器最终方法调用、异常处理都在该方法内
+     this.processDispatchResult(processedRequest, response, mappedHandler, mv, 
+    (Exception)dispatchException);
+}
+```
+
+跟踪processDispatchResult方法
+
+```java
+private void processDispatchResult(HttpServletRequest request, HttpServletResponse response, 
+@Nullable HandlerExecutionChain mappedHandler, @Nullable ModelAndView mv, @Nullable Exception 
+exception) throws Exception {
+     boolean errorView = false;//定义错误视图标识，默认为false
+     if (exception != null) {
+         //判断当前捕获的异常是否是ModelAndViewDefiningException类型的异常
+     if (exception instanceof ModelAndViewDefiningException) {
+         //获得ModelAndViewDefiningException异常对象中的ModelAndView对象
+         mv = ((ModelAndViewDefiningException)exception).getModelAndView();
+     } else {
+         //捕获到其他异常，获得当前发生异常的Handler对象
+         Object handler = mappedHandler != null ? mappedHandler.getHandler() : null;
+         //执行processHandlerException 方法
+         mv = this.processHandlerException(request, response, handler, exception);
+         //如果异常处理返回了ModelAndView 则修改错误视图的标识为true
+         errorView = mv != null;
+     }}
+ // ... 省略其他代码 ...}
+
+```
+
+跟踪processHandlerException 方法
+
+```java
+protected ModelAndView processHandlerException(HttpServletRequest request, HttpServletResponse response,
+                                               @Nullable Object handler, Exception ex) throws Exception {
+    ModelAndView exMv = null;//定义ModelAndView
+    //判断处理器异常解析器集合是否是空的
+    if (this.handlerExceptionResolvers != null) {
+        //遍历处理器异常解析器List集合
+        Iterator var6 = this.handlerExceptionResolvers.iterator();
+        while(var6.hasNext()) {
+            //取出每一个异常解析器
+            HandlerExceptionResolver resolver = (HandlerExceptionResolver)var6.next();
+            //执行异常解析器的resolveException方法
+            exMv = resolver.resolveException(request, response, handler, ex);
+            //只要有一个异常处理器返回ModelAndView 则不在执行后面的异常处理器
+            if (exMv != null) {
+                break;
+            }
+        } }
+    //如果视图解析器不为null
+    if (exMv != null) {return exMv;
+    } else { throw ex; }}
+```
+
+### SpringMVC 常用的异常解析器
+
+SpringMVC 相关的处理器异常解析器继承体系如下：
+
+![image-20230802205632113](assets/image-20230802205632113.png)
+
+SpringMVC 常用的异常解析器
+
+| 接口或类                          | 说明                                                         |
+| --------------------------------- | ------------------------------------------------------------ |
+| HandlerExceptionResolver          | 异常处理器类的顶级接口，实现了该接口的类都会作为异常处理器类 |
+| MyHandlerExceptionResolver        | 自定义的处理器类，实现了HandlerExceptionResolver接口         |
+| HandlerExceptionResolverComposite | 异常解析器混合器，内部存在集合存储多种异常解析器             |
+| SimpleMappingExceptionResolver    | 简单映射异常处理器，可以配置异常与对应的错误视图             |
+| ExceptionHandlerExceptionResolver | 异常处理器异常解析器，默认会被注册到Spring容器中，@ExceptionHandler方式 异常处理就是该解析器解析的 |
+| DefaultHandlerExceptionResolver   | 默认处理器异常解析器，所有异常处理器都不匹配时，最后执行的异常处理器 |
+| ResponseStatusExceptionResolver   | 响应状态异常解析器，结合使用@ResponseStatus标注的异常使用    |
+
