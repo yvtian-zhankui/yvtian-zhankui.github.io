@@ -36,6 +36,7 @@ var sidebarSpring = [
                 { text: 'spring整合logBack日志框架', link: '/guide/Spring/spring整合logBack日志框架' },
                 { text: 'Spring总结', link: '/guide/Spring/Spring总结' },
                 { text: 'Spring合集版', link: '/guide/Spring/itheima/Spring' }, 
+             
               ]
               },
             ];

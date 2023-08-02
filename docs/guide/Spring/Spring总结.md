@@ -539,3 +539,8 @@ public class MyImportBeanDefinitionRegistrar implements ImportBeanDefinitionRegi
 }
 ```
 
+## AOP
+
+### AOP 简介
+
+AOP，Aspect Oriented Programming，面向切面编程，是对面向对象编程OOP的升华。OOP是纵向对一个 事物的抽象，一个对象包括静态的属性信息，包括动态的方法信息等。而AOP是横向的对不同事物的抽象，属 性与属性、方法与方法、对象与对象都可以组成一个切面，而用这种思维去设计编程的方式叫做面向切面编程
