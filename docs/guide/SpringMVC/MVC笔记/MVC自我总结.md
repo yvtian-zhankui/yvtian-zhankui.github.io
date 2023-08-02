@@ -4,13 +4,15 @@
 
 ### Javaweb三大组件及环境特点
 
-在Java语言范畴内，web层框架都是基于Javaweb基础组件完成的，所以有必要复习一下Javaweb组件的特点
+在Java语言范畴内，web层框架都是基于Javaweb基础组件完成的。
 
-| 组件     | 作用                                            | 特点                                                         |
-| -------- | ----------------------------------------------- | ------------------------------------------------------------ |
-| Servlet  | 服务端小程序，负责接收客户端 请求并作出响应的   | 单例对象，默认第一次访问创建，可以通过配置指定服务器启动就创建，Servlet 创建完毕会执行初始化init方法。每个Servlet有一个service方法，每次访问都会 执行service方法，但是缺点是一个业务功能就需要配置一个Servlet |
-| Filter   | 过滤器，负责对客户端请求进行 过滤操作的         | 单例对象，服务器启动时就创建，对象创建完毕执行init方法，对客户端的请求 进行过滤，符合要求的放行，不符合要求的直接响应客户端，执行过滤的核心 方法doFilter |
-| Listener | 监听器，负责对域对象的创建和 属性变化进行监听的 | 根据类型和作用不同，又可分为监听域对象创建销毁和域对象属性内容变化的， 根据监听的域不同，又可以分为监听Request域的，监听Session域的，监听 ServletContext域的 |
+Javaweb组件的特点
+
+| 组件     | 作用                                           | 特点                                                         |
+| -------- | ---------------------------------------------- | ------------------------------------------------------------ |
+| Servlet  | 服务端小程序，负责接收客户端请求并作出响应的   | 单例对象，默认第一次访问创建，可以通过配置指定服务器启动就创建，Servlet 创建完毕会执行初始化init方法。每个Servlet有一个service方法，每次访问都会执行service方法，但是缺点是一个业务功能就需要配置一个Servlet |
+| Filter   | 过滤器，负责对客户端请求进行过滤操作的         | 单例对象，服务器启动时就创建，对象创建完毕执行init方法，对客户端的请求进行过滤，符合要求的放行，不符合要求的直接响应客户端，执行过滤的核心方法doFilter |
+| Listener | 监听器，负责对域对象的创建和属性变化进行监听的 | 根据类型和作用不同，又可分为监听域对象创建销毁和域对象属性内容变化的， 根据监听的域不同，又可以分为监听Request域的，监听Session域的，监听 ServletContext域的 |
 
 ### Spring整合web环境的思路及实现
 
@@ -86,14 +88,14 @@ String ServletContext.getInitParameter("contextConfigLocation");
 
 ###  Spring的web开发组件spring-web
 
-到此，就将一开始的诉求都解决了，当然我们能想到的Spring 框架自然也会想到，Spring其实已经为我们定义 好了一个ContextLoaderListener，使用方式跟我们上面自己定义的大体一样，但是功能要比我们强百倍，所以 ，遵循Spring "拿来主义" 的精神，我们直接使用Spring提供的就可以了，开发如下： 
+Spring定义好了一个ContextLoaderListener，使用方式跟上面自己定义的大体一样，但是功能要强百倍。
 
 先导入Spring-web的坐标：
 
 ```xml
 <dependency>
     <groupId>org.springframework</groupId>
-    <artifactId>spring-context</artifactId>
+    <artifactId>spring-web</artifactId>
     <version>5.3.27</version>
 </dependency>
 ```
@@ -157,13 +159,13 @@ Java程序员在开发一般都是MVC+三层架构，MVC是web开发模式，传
 
 ![image-20230729102932252](assets/image-20230729102932252.png)
 
-原始Javaweb开发中，Servlet充当Controller的角色，Jsp充当View角色，JavaBean充当模型角色，后期Ajax异 步流行后，在加上现在前后端分离开发模式成熟后，View就被原始Html+Vue替代。原始Javaweb开发中， Service充当Controller有很多弊端，显而易见的有如下几个：
+原始Javaweb开发中，Servlet充当Controller的角色，Jsp充当View角色，JavaBean充当模型角色，后期Ajax异 步流行后，在加上现在前后端分离开发模式成熟后，View就被原始Html+Vue替代。原始Javaweb开发中， Servlet充当Controller有很多弊端，显而易见的有如下几个：
 
 | Servlet作为Controller的问题                                  | 解决思路和方案                                               |
 | ------------------------------------------------------------ | ------------------------------------------------------------ |
 | 每个业务功能请求都对应一个Servlet                            | 根据业务模块去划分Controller                                 |
 | 每个Servlet的业务操作太繁琐                                  | 将通用的行为，功能进行抽取封装                               |
-| Servlet获得Spring容器的组件只能通过客户端代码去获取，不能 优雅的整合 | 通过Spring的扩展点，去封装一个框架，从原有的Servlet完全接 手过来web层的业务 |
+| Servlet获得Spring容器的组件只能通过客户端代码去获取，不能优雅的整合 | 通过Spring的扩展点，去封装一个框架，从原有的Servlet完全接 手过来web层的业务 |
 
 负责共有行为的Servlet称之为前端控制器，负责业务行为的JavaBean称之为控制器Controller
 
@@ -181,7 +183,7 @@ Java程序员在开发一般都是MVC+三层架构，MVC是web开发模式，传
 
 ###  SpringMVC概述
 
-SpringMVC是一个基于Spring开发的MVC轻量级框架，Spring3.0后发布的组件，SpringMVC和Spring可以无 缝整合，使用DispatcherServlet作为前端控制器，且内部提供了处理器映射器、处理器适配器、视图解析器等组 件，可以简化JavaBean封装，Json转化、文件上传等操作。
+SpringMVC是一个基于Spring开发的MVC轻量级框架，Spring3.0后发布的组件，SpringMVC和Spring可以无缝整合，使用DispatcherServlet作为前端控制器，且内部提供了处理器映射器、处理器适配器、视图解析器等组 件，可以简化JavaBean封装，Json转化、文件上传等操作。
 
 ![image-20230729105902206](assets/image-20230729105902206.png)
 
@@ -252,13 +254,13 @@ DispatcherServlet在进行初始化时，加载的spring-mvc.xml配置文件创�
 
 | 组件                         | 描述                                                         | 常用组件                     |
 | ---------------------------- | ------------------------------------------------------------ | ---------------------------- |
-| 处理器映射器：HandlerMapping | 匹配映射路径对应的Handler，返回可执行的处 理器链对象HandlerExecutionChain对象 | RequestMappingHandlerMapping |
-| 处理器适配器：HandlerAdapter | 匹配HandlerExecutionChain对应的适配器进行处 理器调用，返回视图模型对象 | RequestMappingHandlerAdapter |
+| 处理器映射器：HandlerMapping | 匹配映射路径对应的Handler，返回可执行的处理器链对象HandlerExecutionChain对象 | RequestMappingHandlerMapping |
+| 处理器适配器：HandlerAdapter | 匹配HandlerExecutionChain对应的适配器进行处理器调用，返回视图模型对象 | RequestMappingHandlerAdapter |
 | 视图解析器：ViewResolver     | 对视图模型对象进行解析                                       | InternalResourceViewResolver |
 
 ![image-20230729162114816](assets/image-20230729162114816.png)
 
-SpringMVC的默认组件，SpringMVC 在前端控制器 DispatcherServlet加载时，就会进行初始化操作，在进行初始 化时，就会加载SpringMVC默认指定的一些组件，这些默认组件配置在 DispatcherServlet.properties 文件中，该文 件存在与spring-webmvc-5.3.7.jar包下的 org\springframework\web\servlet\DispatcherServlet.properties
+SpringMVC的默认组件，SpringMVC 在前端控制器 DispatcherServlet加载时，就会进行初始化操作，在进行初始化时，就会加载SpringMVC默认指定的一些组件，这些默认组件配置在DispatcherServlet.properties 文件中，该文件存在与spring-webmvc-5.3.7.jar包下的 org\springframework\web\servlet\DispatcherServlet.properties
 
 ```properties
 org.springframework.web.servlet.HandlerMapping=org.springframework.web.servlet.handler.BeanNameUrl
@@ -288,20 +290,20 @@ private List<ViewResolver> viewResolvers;
 }
 ```
 
-配置组件代替默认组件，如果不想使用默认组件，可以将替代方案使用Spring Bean的方式进行配置，例如，在 spring-mvc.xml中配置RequestMappingHandlerMapping
+配置组件代替默认组件，如果不想使用默认组件，可以用替代方案，使用Spring Bean的方式进行配置，例如，在 spring-mvc.xml中配置RequestMappingHandlerMapping
 
 ```xml
 <bean 
 class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping"/>
 ```
 
-当我们在Spring容器中配置了HandlerMapping，则就不会在加载默认的HandlerMapping策略了，原理比较简单， DispatcherServlet 在进行HandlerMapping初始化时，先从SpringMVC容器中找是否存在HandlerMapping，如果 存在直接取出容器中的HandlerMapping，在存储到 DispatcherServlet 中的handlerMappings集合中去
+当我们在Spring容器中配置了HandlerMapping，则就不会在加载默认的HandlerMapping策略了，原理比较简单， DispatcherServlet 在进行HandlerMapping初始化时，先从SpringMVC容器中找是否存在HandlerMapping，如果存在直接取出容器中的HandlerMapping，在存储到 DispatcherServlet 中的handlerMappings集合中去
 
 ## SpringMVC的请求处理
 
 ### 请求映射路径的配置
 
-配置映射路径，映射器处理器才能找到Controller的方法资源，目前主流映射路径配置方式就是@RequestMapping
+配置映射路径，处理器映射器才能找到Controller的方法资源，目前主流映射路径配置方式就是@RequestMapping
 
 | 相关注解        | 作用                                           | 使用位置   |
 | --------------- | ---------------------------------------------- | ---------- |
@@ -311,7 +313,7 @@ class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandl
 
 `@GetMapping` 和`@PostMapping` 均有此注解 `@Target({ElementType.METHOD})` 因此只能在方法上使用
 
-@RequestMapping注解，主要使用在控制器的方法上，用于标识客户端访问资源路径，常用的属性有value、path 、method、headers、params等。当@RequestMapping只有一个访问路径需要指定时，使用value属性、path属 性或省略value和path，当有多个属性时，value和path不能省略
+@RequestMapping注解，主要使用在控制器的方法上，用于标识客户端访问资源路径，常用的属性有value、path 、method、headers、params等。当@RequestMapping只有一个访问路径需要指定时，使用value属性、path属性或省略value和path，当有多个属性时，value和path不能省略
 
 ```java
 @RequestMapping(value = "/show")//使用value属性指定一个访问路径
@@ -356,7 +358,7 @@ public enum RequestMethod {
 }
 ```
 
-@RequestMapping 使用在类上后，该类所有方法都公用该@RequestMapping设置的属性，访问路径则为类上的映射 地址+方法上的映射地址，例如：
+@RequestMapping 使用在类上后，该类所有方法都公用该@RequestMapping设置的属性，访问路径则为类上的映射地址+方法上的映射地址，例如：
 
 ```
 @Controller
@@ -420,7 +422,7 @@ public Object get(String[] hobby) {
 }
 ```
 
-客户端传递多个同名参数时，也可以使用单列集合接收，但是需要使用@RequestParam告知框架传递的参数是要同 名设置的，不是对象属性设置的
+客户端传递多个同名参数时，也可以使用单列集合接收，但是需要使用@RequestParam告知框架传递的参数是要同名设置的，不是对象属性设置的
 
 ```
 hobby=sing&hobby=dance&hobby=rap
@@ -555,7 +557,7 @@ public Object get(@RequestBody Map user) throws IOException {
 
 **接收Restful风格数据 **
 
-Rest（Representational State Transfer）表象化状态转变（表述性状态转变），在2000年被提出，基于HTTP、URI 、xml、JSON等标准和协议，支持轻量级、跨平台、跨语言的架构设计。是Web服务的一种新网络应用程序的设计风 格和开发方式。
+Rest（Representational State Transfer）表象化状态转变（表述性状态转变），在2000年被提出，基于HTTP、URI 、xml、JSON等标准和协议，支持轻量级、跨平台、跨语言的架构设计。是Web服务的一种新网络应用程序的设计风格和开发方式。
 
 GET表示查询、POST表示插入、PUT表示更新、DELETE表示删除
 
@@ -725,6 +727,12 @@ public String request2(@RequestAttribute("username") String username) {
 </filter-mapping>
 ```
 
+> 补充 三组件启动顺序
+>
+> **启动的顺序为listener->Filter->servlet.**
+>
+> **简单记为：理(Listener)发(Filter)师(servlet).** 
+
 ### Javaweb常用对象获取
 
 获得Javaweb常见原生对象，有时在我们的Controller方法中需要用到Javaweb的原生对象，例如：Request、 Response等，我们只需要将需要的对象以形参的形式写在方法上，SpringMVC框架在调用Controller方法时，会自动传递实参：
@@ -833,7 +841,7 @@ public BeanDefinition parse(Element element, ParserContext context) {
 >
 > 只需手动加入HandlerMapping到容器中即可
 
-根据上面的讲解，可以总结一下，要想使用@RequestMapping正常映射到资源方法，同时静态资源还能正常访问， 还可以将请求json格式字符串和JavaBean之间自由转换，我们就需要在spring-mvc.xml中尽心如下配置：
+根据上面的讲解，可以总结一下，要想使用@RequestMapping正常映射到资源方法，同时静态资源还能正常访问， 还可以将请求json格式字符串和JavaBean之间自由转换，我们就需要在spring-mvc.xml中进行如下配置：
 
 ```xml
 <!-- 显示配置RequestMappingHandlerMapping -->
@@ -867,7 +875,7 @@ PS： 标签在不同的版本中，帮我们注册的组件不同，Spring 3.0.
 
 ### 传统同步业务数据响应
 
-Spring的接收请求的部分我们讲完了，下面在看一下Spring怎么给客户端响应数据，响应数据主要分为两大部分： 
+响应数据主要分为两大部分： 
 
 ⚫ 传统同步方式：准备好模型数据，在跳转到执行页面进行展示，此方式使用越来越少了，基于历史原因，一些旧项目还在使用；
 
@@ -958,7 +966,6 @@ SpringMVC的拦截器Interceptor规范，主要是对Controller资源访问时�
 ```
 public interface HandlerInterceptor {
 
-
 	default boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
 		return true;
@@ -971,7 +978,6 @@ public interface HandlerInterceptor {
 	}
 
 }
-
 ```
 
 HandlerInterceptor接口方法的作用及其参数、返回值详解如下：
@@ -1328,3 +1334,188 @@ AbstractAnnotationConfigDispatcherServletInitializer {
 }
 ```
 
+## SpringMVC的组件原理剖析
+
+### 前端控制器初始化
+
+前端控制器DispatcherServlet是SpringMVC的入口，也是SpringMVC的大脑，主流程的工作都是在此完成的，梳理一下DispatcherServlet 代码。DispatcherServlet 本质是个Servlet，当配置了 load-on-startup 时，会在服务器启动时就执行创建和执行初始化init方法，每次请求都会执行service方法
+
+DispatcherServlet 的初始化主要做了两件事：
+
+⚫ 获得了一个 SpringMVC 的 ApplicationContext容器； 
+
+⚫ 注册了 SpringMVC的 九大组件。
+
+DispatcherServlet 继承体系
+
+![DispatcherServlet](assets/DispatcherServlet.png)
+
+SpringMVC 的ApplicationContext容器创建时机，Servlet 规范的 init(ServletConfig config) 方法经过子类重写 ，最终会调用 FrameworkServlet 抽象类的initWebApplicationContext() 方法，该方法中最终获得 一个根 Spring容器（Spring产生的），一个子Spring容器（SpringMVC产生的）
+
+HttpServletBean 的初始化方法
+
+```xml
+public final void init() throws ServletException {
+	this.initServletBean();
+}
+```
+
+FrameworkServlet的initServletBean方法
+
+```xml
+protected final void initServletBean() throws ServletException {
+    this.webApplicationContext = this.initWebApplicationContext();//初始化ApplicationContext
+    this.initFrameworkServlet();//模板设计模式，供子类覆盖实现，但是子类DispatcherServlet没做使用
+}
+```
+
+在initWebApplicationContext方法中体现的父子容器的逻辑关系
+
+```java
+//初始化ApplicationContext是一个及其关键的代码
+protected WebApplicationContext initWebApplicationContext() {
+    //获得根容器，其实就是通过ContextLoaderListener创建的ApplicationContext
+    //如果配置了ContextLoaderListener则获得根容器，没配置获得的是null
+    WebApplicationContext rootContext = 
+    WebApplicationContextUtils.getWebApplicationContext(this.getServletContext());
+    //定义SpringMVC产生的ApplicationContext子容器
+    WebApplicationContext wac = null;
+    if (wac == null) {
+        //==>创建SpringMVC的子容器，创建同时将Spring的创建的rootContext传递了过去
+        wac = this.createWebApplicationContext(rootContext);
+    }
+    //将SpringMVC产生的ApplicationContext子容器存储到ServletContext域中
+    //key名是：org.springframework.web.servlet.FrameworkServlet.CONTEXT.DispatcherServlet
+    if (this.publishContext) {
+        String attrName = this.getServletContextAttributeName();
+        this.getServletContext().setAttribute(attrName, wac);
+	}
+}
+```
+
+跟进创建子容器的源码
+
+```java
+protected WebApplicationContext createWebApplicationContext(@Nullable ApplicationContext 
+parent) {
+    //实例化子容器ApplicationContext
+    ConfigurableWebApplicationContext wac = 
+    (ConfigurableWebApplicationContext)BeanUtils.instantiateClass(contextClass);
+    //设置传递过来的ContextLoaderListener的rootContext为父容器
+    wac.setParent(parent);
+    //获得web.xml配置的classpath:spring-mvc.xml
+    String configLocation = this.getContextConfigLocation();
+    if (configLocation != null) {
+        //为子容器设置配置加载路径
+        wac.setConfigLocation(configLocation);
+    }
+    //初始化子容器(就是加载spring-mvc.xml配置的Bean)
+    this.configureAndRefreshWebApplicationContext(wac);
+    return wac;
+}
+```
+
+**子容器中的parent维护着父容器的引用** 
+
+父容器和子容器概念和关系： 
+
+⚫ 父容器：Spring 通过ContextLoaderListener为入口产生的applicationContext容器，内部主要维护的是 applicationContext.xml（或相应配置类）配置的Bean信息； 
+
+⚫ 子容器：SpringMVC通过DispatcherServlet的init() 方法产生的applicationContext容器，内部主要维护的 是spring-mvc.xml（或相应配置类）配置的Bean信息，且内部还通过parent属性维护这父容器的引用。 
+
+⚫ Bean的检索顺序：根据上面子父容器的概念，可以知道Controller存在与子容器中，而Controller中要注入 Service时，会先从子容器本身去匹配，匹配不成功时在去父容器中去匹配，于是最终从父容器中匹配到的 UserService，这样子父容器就可以进行联通了。但是父容器只能从自己容器中进行匹配，不能从子容器中进 行匹配。
+
+注册 SpringMVC的 九大组件，在初始化容器initWebApplicationContext方法中执行了onRefresh方法，进而执 行了初始化策略initStrategies方法，注册了九个解析器组件
+
+```java
+//DispatcherServlet初始化SpringMVC九大组件
+protected void initStrategies(ApplicationContext context) {
+    this.initMultipartResolver(context);//1、初始化文件上传解析器
+    this.initLocaleResolver(context);//2、初始化国际化解析器
+    this.initThemeResolver(context);//3、初始化模板解析器
+    this.initHandlerMappings(context);//4、初始化处理器映射器
+    this.initHandlerAdapters(context);//5、初始化处理器适配器
+    this.initHandlerExceptionResolvers(context);//6、初始化处理器异常解析器
+    this.initRequestToViewNameTranslator(context);//7、初始化请求视图转换器
+    this.initViewResolvers(context);//8、初始化视图解析器
+    this.initFlashMapManager(context);//9、初始化FlashMapManager策略组件
+}
+```
+
+以 this.initHandlerMappings(context) 为例，进一步看一下初始化处理器映射器的细节：
+
+```java
+//定义List容器存储HandlerMapping
+private List<HandlerMapping> handlerMappings;
+    //初始化HandlerMapping的方法
+    private void initHandlerMappings(ApplicationContext context) {
+        this.handlerMappings = null;//初始化集合为null
+        //detectAllHandlerMappings默认为true，代表是否从所有容器中(父子容器)检测HandlerMapping
+        if (this.detectAllHandlerMappings) {
+            //从Spring容器中去匹配HandlerMapping
+            Map<String, HandlerMapping> matchingBeans = BeanFactoryUtils.beansOfTypeIncludingAncestors(context, 
+            HandlerMapping.class, true, false);
+        //如果从容器中获取的HandlerMapping不为null就加入到事先定义好的handlerMappings容器中
+        if (!matchingBeans.isEmpty()) {
+            this.handlerMappings = new ArrayList(matchingBeans.values());
+            AnnotationAwareOrderComparator.sort(this.handlerMappings);
+        }
+        //如果从容器中没有获得HandlerMapping，意味着handlerMappings集合是空的
+        if (this.handlerMappings == null) {
+        	//加载默认的HandlerMapping，就是加载DispatcherServlet.properties文件中的键值对
+        	this.handlerMappings = this.getDefaultStrategies(context, HandlerMapping.class);
+} } }
+
+```
+
+初始化后，映射信息就已经被封装到 HandlerMapping中了，可以在获取 matchingBeans处打断点验证
+
+![image-20230802193317365](assets/image-20230802193317365.png)
+
+### 前端控制器执行主流程
+
+当服务器启动时，DispatcherServlet 会执行初始化操作，接下来，每次访问都会执行service 方法
+
+宏观执行流程
+
+![image-20230729162114816](assets/image-20230729162114816.png)
+
+FrameworkServlet 复写了service(HttpServletRequest request, HttpServletResponse response) 、 doGet(HttpServletRequest request, HttpServletResponse response)、doPost(HttpServletRequest request, HttpServletResponse response)等方法，这些方法都会调用processRequest方法
+
+```java
+protected final void processRequest(HttpServletRequest request, HttpServletResponse response){
+	this.doService(request, response);
+}
+```
+
+进一步调用了doService方法，该方法内部又调用了doDispatch方法，而SpringMVC 主流程最核心的方法就是 doDispatch 方法
+
+```java
+protected void doService(HttpServletRequest request, HttpServletResponse response) {
+	this.doDispatch(request, response);
+}
+```
+
+doDispatch方法源码
+
+```java
+protected void doDispatch(HttpServletRequest request, HttpServletResponse response) {
+    HttpServletRequest processedRequest = request;
+    HandlerExecutionChain mappedHandler = null; //定义处理器执行链对象
+    ModelAndView mv = null; //定义模型视图对象
+    //匹配处理器映射器HandlerMapping，返回处理器执行链对象
+    mappedHandler = this.getHandler(processedRequest);
+    //匹配处理器适配器HandlerAdapter，返回处理器适配器对象
+    HandlerAdapter ha = this.getHandlerAdapter(mappedHandler.getHandler());
+    //执行Interceptor的前置方法preHandle
+    mappedHandler.applyPreHandle(processedRequest, response);
+    //处理器适配器执行控制器Handler，返回模型视图对象
+    mv = ha.handle(processedRequest, response, mappedHandler.getHandler());
+    //执行Interceptor的后置方法postHandle
+    mappedHandler.applyPostHandle(processedRequest, response, mv);
+    //获取视图渲染视图
+    this.processDispatchResult(processedRequest, response, mappedHandler, mv, (Exception)dispatchException);
+}
+```
+
+**MVC结束** 
